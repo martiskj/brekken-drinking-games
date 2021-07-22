@@ -4,14 +4,14 @@
     <div class="level-wrapper">
       
       <div class="level-info">
-        <p>Level: <span class="level">{{this.character.level}}</span></p>
-        <p>Exp: {{ this.character.currentExp}} / {{ this.character.nextLevelExp }}</p>
+        <p>Level: <span class="level">{{this.$store.state.app.level}}</span></p>
+        <p>Exp: {{ this.currentExp }} / {{ this.nextLevelExp }}</p>
       </div>
 
       <ExperienceBar :progress="progress" />
       <ExperienceInput />
 
-      <button @click="character.currentExp += 10">Drink!</button>
+      <button @click="increase">Drink!</button>
     </div>
   </div>
 
@@ -38,8 +38,28 @@ export default class App extends Vue {
     nextLevelExp: 100
   }
 
+  mounted() {
+    console.log(this.$store);
+  }
+
+  increase() {
+    this.$store.dispatch('AddConsume', {
+        barcode: "7329234",
+        volume: 50,
+        percentage: 4.7
+    })
+  }
+
   get progress(): number {
-    return (this.character.currentExp / this.character.nextLevelExp) * 100;
+    return (this.currentExp / this.nextLevelExp) * 100;
+  }
+
+  get currentExp(): number {
+    return this.$store.getters.expCurrent;
+  }
+
+  get nextLevelExp(): number {
+    return this.$store.getters.expNextLevel;
   }
 
 }
