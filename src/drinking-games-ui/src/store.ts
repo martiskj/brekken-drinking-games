@@ -17,16 +17,10 @@ export class ApplicationStore extends VuexModule {
         [5, 350],
     ]);
 
-    private consume: Array<Beverage> = [
-        {
-            barcode: "7329234",
-            volume: 50,
-            percentage: 4.7
-        }
+    public consume: Array<Beverage> = [
     ]
 
-    public level = 1;
-    public expCurrenta = 40;
+    public level = 0;
 
     get expNextLevel(): number {
         return this.expToNextLevelTable.get(this.level)!;

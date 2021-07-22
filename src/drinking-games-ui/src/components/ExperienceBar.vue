@@ -3,7 +3,7 @@
   <div class="container">
 
     <div class="loading-bar">
-      <div class="percentage" :style="{ 'width' : 'calc(' + progress + '% - 2px)' }"></div>
+      <div class="percentage" :style="{ 'width' : progress + '%' }"></div>
     </div>
 
   </div>
@@ -25,15 +25,13 @@ export default class ExperienceBar extends Vue {
 
 .loading-bar {
   position: relative;
-  width: $--page-width + 2px;
-  height: 15px;
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
 }
 
 .percentage {
-  position: absolute;
-  top: 1px; left: 1px;
   background: $--color-pri;
-  background: linear-gradient(90deg, $--color-thi 0%, $--color-pri 100%);
   height: calc(100% - 2px);
   transition: width .5s ease-out;
 }

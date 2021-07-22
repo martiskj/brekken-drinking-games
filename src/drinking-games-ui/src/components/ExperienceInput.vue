@@ -1,7 +1,7 @@
 <template>
 
     <div class="wrapper" >
-      <input type="text" class="exp-input" />
+      <input @keyup.enter="submitBeverage" type="text" class="exp-input" />
     </div>
 
 </template>
@@ -12,13 +12,22 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class ExperienceInput extends Vue {
 
+    submitBeverage(): void {
+        this.$store.dispatch('AddConsume', {
+        barcode: "7329236",
+        name: "Frydenlund pilsner",
+        volume: 50,
+        percentage: 4.7
+    })
+    
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 
 .wrapper {
-    width: $--page-width;
+    width: 100%;
 }
 
 input {
@@ -27,6 +36,10 @@ input {
     height: 50px;
     background-color: $--color-bac;
     border: 2px solid $--color-pri;
+    color: $--color-pri;
+    font-size: 1.6rem;
+    padding: 0 10px;
+    outline:none;
 }
 
 </style>
