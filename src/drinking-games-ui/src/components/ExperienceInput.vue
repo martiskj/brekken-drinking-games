@@ -1,7 +1,7 @@
 <template>
 
     <div class="wrapper" >
-      <input @keyup.enter="submitBeverage" type="text" class="exp-input" />
+      <input ref="consumeInput" v-model="barcode" @keyup.enter="submitBeverage" type="text" class="exp-input" />
     </div>
 
 </template>
@@ -12,14 +12,21 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class ExperienceInput extends Vue {
 
+    barcode = "";
+
+    mounted() {
+        (this.$refs.consumeInput as HTMLElement).focus();
+    }
+
     submitBeverage(): void {
         this.$store.dispatch('AddConsume', {
-        barcode: "7329236",
-        name: "Frydenlund pilsner",
-        volume: 50,
-        percentage: 4.7
-    })
-    
+            barcode: this.barcode,
+            name: "Frydenlund pilsner",
+            volume: 50,
+            percentage: 4.7
+        })
+
+        this.barcode = "";
     }
 }
 </script>

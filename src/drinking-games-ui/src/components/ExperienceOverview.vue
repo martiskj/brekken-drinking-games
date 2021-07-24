@@ -4,7 +4,7 @@
 
         <div class="level-info">
             <p>Level: <span class="level">{{this.$store.state.app.level}}</span></p>
-            <p>Exp: {{ this.currentExp }} / {{ this.nextLevelExp }}</p>
+            <p>Exp: {{ this.expCurrent }} / {{ this.expNextLevel }}</p>
         </div>
 
         <ExperienceBar :progress="progress" />
@@ -26,14 +26,14 @@ import ExperienceBar from './ExperienceBar.vue';
 export default class ExperienceOverview extends Vue {
   
   get progress(): number {
-    return (this.currentExp / this.nextLevelExp) * 100;
+    return (this.expCurrent / this.expNextLevel) * 100;
   }
 
-  get currentExp(): number {
+  get expCurrent(): number {
     return this.$store.getters.expCurrent;
   }
 
-  get nextLevelExp(): number {
+  get expNextLevel(): number {
     return this.$store.getters.expNextLevel;
   }
 }

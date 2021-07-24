@@ -17,9 +17,7 @@ export class ApplicationStore extends VuexModule {
         [5, 350],
     ]);
 
-    public consume: Array<Beverage> = [
-    ]
-
+    public consume: Array<Beverage> = []
     public level = 0;
 
     get expNextLevel(): number {
@@ -27,7 +25,17 @@ export class ApplicationStore extends VuexModule {
     }
 
     get expCurrent(): number {
-        return this.consume.reduce((sum, current) => sum + Math.floor(current.percentage * current.volume / 10), 0);
+        const totalExp = this.consume.reduce((sum, current) => sum + Math.floor(current.percentage * current.volume / 10), 0);
+
+        let sum = 0;
+
+        this.expToNextLevelTable.forEach((value, key) => {
+            if (key < this.level) {
+                sum += value;
+            }
+        })
+
+        return totalExp - sum;
     }
 
     @Mutation
@@ -35,8 +43,20 @@ export class ApplicationStore extends VuexModule {
         this.consume.push(beverage);
     }
 
-    @Action({ commit: 'ADD_CONSUME'})
+    @Mutation
+    LVL_UP(){
+        this.level += 1;
+    }
+
+    @Action
     AddConsume(beverage: Beverage): Beverage {
+        this.context.commit('ADD_CONSUME', beverage);
+
+        if (this.expCurrent >= this.expNextLevel)
+        {
+            this.context.commit('LVL_UP');
+        }
+
         return beverage;
     }
 
