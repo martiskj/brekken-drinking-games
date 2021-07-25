@@ -1,3 +1,4 @@
-# Brekken Drinking Games
+# Run the application
 
-Welcome to this new and exciting projects.
+1. Build and run the application by running `docker-compose up --build`
+1. Open the application in your browser by heading to `localhost:3000`
